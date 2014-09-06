@@ -56,7 +56,14 @@ class ViewController: UIViewController {
 
 
     func updateDisplay() {
-        numField.text = "\(accumulator)"
+        
+        // If the value is an integer, don't show a decimal point
+        var iAcc = Int(accumulator)
+        if accumulator - Double(iAcc) == 0 {
+            numField.text = "\(iAcc)"
+        } else {
+            numField.text = "\(accumulator)"
+        }
     }
 
     
