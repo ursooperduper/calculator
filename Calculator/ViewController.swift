@@ -39,7 +39,17 @@ class ViewController: UIViewController {
     @IBOutlet var btn9: UIButton!
 
     func handleInput(str: String) {
-        userInput += str
+        
+        if str == "-" {
+            if userInput.hasPrefix(str) {
+                // Strip off the first character (a dash)
+                userInput = userInput.substringFromIndex(userInput.startIndex.successor())
+            } else {
+                userInput = str + userInput
+            }
+        } else {
+            userInput += str
+        }
         accumulator = Double((userInput as NSString).doubleValue)
         updateDisplay()
     }
@@ -99,8 +109,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnCHSPress(sender: UIButton) {
-        println("WORKS!")
-    
+        if userInput.isEmpty {
+            userInput = numField.text
+        }
+        handleInput("-")
     }
     
     
@@ -115,11 +127,9 @@ class ViewController: UIViewController {
     
     
     func doMath(functor: (Double, Double) -> Double) {
-        if userInput == "" {
-            return
-        }
-        if numStack.isEmpty {
+        if userInput == "" || numStack.isEmpty {
             numStack.append(accumulator) // push
+            
         } else {
             
             var oper = opStack.removeLast()
@@ -139,10 +149,10 @@ class ViewController: UIViewController {
         if !numStack.isEmpty {
             var oper = opStack.removeLast()
             accumulator = oper(numStack.removeLast(), accumulator)
-            numStack.append(accumulator)
+            //numStack.append(accumulator)
         }
-        userInput = ""
         updateDisplay()
+        userInput = numField.text
     }
     
     @IBAction func btnPlusPress(sender: UIButton) {
