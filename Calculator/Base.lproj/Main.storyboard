@@ -184,6 +184,9 @@
                                             <color key="titleColor" red="1" green="0.28179702949659169" blue="0.1708636379015317" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="btnEqualsPress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="twb-Ii-MoO"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d83-DI-2DF">
                                         <rect key="frame" x="234" y="192" width="66" height="56"/>
@@ -344,12 +347,32 @@
                                             <action selector="btnACPress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="sYq-hz-w9R"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HEd-SD-0OP">
+                                        <rect key="frame" x="74" y="0.0" width="66" height="56"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <state key="normal" title="-/+">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="192" width="66" height="56"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="btnCHSPress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="fWC-R3-WXx"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Y6X-U3-rYm" firstAttribute="top" secondItem="tIw-Jw-zVs" secondAttribute="top" id="3PY-my-zb9"/>
+                                    <constraint firstItem="HEd-SD-0OP" firstAttribute="leading" secondItem="Y6X-U3-rYm" secondAttribute="trailing" constant="8" id="Gx2-Ni-dbR"/>
+                                    <constraint firstItem="Y6X-U3-rYm" firstAttribute="height" secondItem="HEd-SD-0OP" secondAttribute="height" id="QNU-qF-G0k"/>
                                     <constraint firstAttribute="trailing" secondItem="Y6X-U3-rYm" secondAttribute="trailing" constant="234" id="h5E-i2-KM8"/>
+                                    <constraint firstItem="HEd-SD-0OP" firstAttribute="top" secondItem="tIw-Jw-zVs" secondAttribute="top" id="qWf-O3-ZZ4"/>
+                                    <constraint firstItem="Y6X-U3-rYm" firstAttribute="width" secondItem="HEd-SD-0OP" secondAttribute="width" id="wuB-ai-THe"/>
                                     <constraint firstAttribute="bottom" secondItem="Y6X-U3-rYm" secondAttribute="bottom" id="xww-Ow-lUJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="HEd-SD-0OP" secondAttribute="trailing" constant="160" id="y1A-Mb-LkP"/>
                                 </constraints>
                             </view>
                         </subviews>

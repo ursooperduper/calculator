@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var userInput = "" // User-entered digits
     
     var numStack: [Double] = [] // Number stack
-    var opStack: [String] = [] // Operator stack
+    var opStack: [(Double, Double) -> Double] = [] // Operator stack
     
     @IBOutlet var numField: UITextField!
     @IBOutlet var btnClear: UIButton!
@@ -49,6 +49,8 @@ class ViewController: UIViewController {
         numField.text = "\(accumulator)"
     }
 
+    
+    
     
     @IBAction func btn0Press(sender: UIButton) {
         handleInput("0")
@@ -96,31 +98,72 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func btnCHSPress(sender: UIButton) {
+        println("WORKS!")
+    
+    }
+    
+    
     @IBAction func btnACPress(sender: UIButton) {
         userInput = ""
         accumulator = 0
         updateDisplay()
-        // TODO: Clear the stack
+        numStack.removeAll()
+        opStack.removeAll()
     }
     
     
     
-    @IBAction func btnEqualsPress(sender: UIButton) {
+    func doMath(functor: (Double, Double) -> Double) {
+        if userInput == "" {
+            return
+        }
+        if numStack.isEmpty {
+            numStack.append(accumulator) // push
+        } else {
+            
+            var oper = opStack.removeLast()
+            accumulator = oper(numStack.removeLast(), accumulator)
+            numStack.append(accumulator)
+            
+        }
+        userInput = ""
+        opStack.append(functor)
+        updateDisplay()
+    }
+
+    func doEquals() {
+        if userInput == "" {
+            return
+        }
+        if !numStack.isEmpty {
+            var oper = opStack.removeLast()
+            accumulator = oper(numStack.removeLast(), accumulator)
+            numStack.append(accumulator)
+        }
+        userInput = ""
+        updateDisplay()
     }
     
     @IBAction func btnPlusPress(sender: UIButton) {
+        doMath(add)
     }
     
     @IBAction func btnMinusPress(sender: UIButton) {
+        doMath(sub)
     }
     
     @IBAction func btnMultiplyPress(sender: UIButton) {
+        doMath(mul)
     }
     
     @IBAction func btnDividePress(sender: UIButton) {
+        doMath(div)
     }
     
-    
+    @IBAction func btnEqualsPress(sender: UIButton) {
+        doEquals()
+    }
     
     
     
@@ -141,42 +184,23 @@ class ViewController: UIViewController {
     }
     
     
-    func add(intA: Int, intB: Int ) -> Int {
-        var result = intA + intB
+    func add(a: Double, b: Double ) -> Double {
+        var result = a + b
         return result
     }
-    
-//    func getMathematical(fieldNum str: String, operationSymbol oper: String) -> Double {
-//        
-//        var myDouble = Double((str as NSString).doubleValue)
-//        
-//        switch oper {
-//        case "+":
-//            curTotal = myDouble + curTotal
-//            curOper = "+"
-//            
-//        case "-":
-//            curTotal = myDouble - curTotal
-//            curOper = "-"
-//            
-//        case "*":
-//            curTotal = myDouble * curTotal
-//            curOper = "*"
-//            
-//        case "/":
-//            curTotal = myDouble * curTotal
-//            curOper = "/"
-//            
-//        default:
-//            println("Something horribly confusing has occurred.")
-//        }
-//        
-//        userInput = ""
-//        println(curTotal)
-//        numField.text = "\(curTotal)"
-//        
-//        return curTotal
-//    }
+    func sub(a: Double, b: Double ) -> Double {
+        var result = a - b
+        return result
+    }
+    func mul(a: Double, b: Double ) -> Double {
+        var result = a * b
+        return result
+    }
+    func div(a: Double, b: Double ) -> Double {
+        var result = a / b
+        return result
+    }
+
     
 
     // Looks for a single character in a string.
