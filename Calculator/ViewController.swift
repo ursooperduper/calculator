@@ -9,6 +9,29 @@ import UIKit
 //        return self.removeLast()
 //    }
 //}
+// Basic math functions
+func add(a: Double, b: Double) -> Double {
+    var result = a + b
+    return result
+}
+func sub(a: Double, b: Double) -> Double {
+    var result = a - b
+    return result
+}
+func mul(a: Double, b: Double) -> Double {
+    var result = a * b
+    return result
+}
+func div(a: Double, b: Double) -> Double {
+    var result = a / b
+    return result
+}
+
+typealias Binop = (Double, Double) -> Double
+
+let ops: [String: Binop] = [ "+" : add, "-" : sub, "*" : mul, "/" : div ]
+
+
 
 class ViewController: UIViewController {
     
@@ -16,8 +39,21 @@ class ViewController: UIViewController {
     var userInput = "" // User-entered digits
     
     var numStack: [Double] = [] // Number stack
-    var opStack: [(Double, Double) -> Double] = [] // Operator stack
+    var opStack: [String] = [] // Operator stack
     
+    // Looks for a single character in a string.
+    func hasIndex(stringToSearch str: String, characterToFind chr: Character) -> Bool {
+        for c in str {
+            if c == chr {
+                return true
+            }
+        }
+        return false
+    }
+
+
+
+    // UI Set-up
     @IBOutlet var numField: UITextField!
     @IBOutlet var btnClear: UIButton!
     @IBOutlet var bntEquals: UIButton!
@@ -37,9 +73,8 @@ class ViewController: UIViewController {
     @IBOutlet var btn7: UIButton!
     @IBOutlet var btn8: UIButton!
     @IBOutlet var btn9: UIButton!
-
+    
     func handleInput(str: String) {
-        
         if str == "-" {
             if userInput.hasPrefix(str) {
                 // Strip off the first character (a dash)
@@ -56,7 +91,6 @@ class ViewController: UIViewController {
 
 
     func updateDisplay() {
-        
         // If the value is an integer, don't show a decimal point
         var iAcc = Int(accumulator)
         if accumulator - Double(iAcc) == 0 {
@@ -67,53 +101,44 @@ class ViewController: UIViewController {
     }
 
     
-    
-    
     @IBAction func btn0Press(sender: UIButton) {
         handleInput("0")
     }
-    
     @IBAction func btn1Press(sender: UIButton) {
         handleInput("1")
     }
-    
     @IBAction func btn2Press(sender: UIButton) {
         handleInput("2")
     }
-    
     @IBAction func btn3Press(sender: UIButton) {
         handleInput("3")
     }
-    
     @IBAction func btn4Press(sender: UIButton) {
         handleInput("4")
     }
-    
     @IBAction func btn5Press(sender: UIButton) {
         handleInput("5")
     }
-
     @IBAction func btn6Press(sender: UIButton) {
         handleInput("6")
     }
-    
     @IBAction func btn7Press(sender: UIButton) {
         handleInput("7")
     }
-    
     @IBAction func btn8Press(sender: UIButton) {
         handleInput("8")
     }
-
     @IBAction func btn9Press(sender: UIButton) {
         handleInput("9")
     }
+    
     
     @IBAction func btnDecPress(sender: UIButton) {
         if hasIndex(stringToSearch: userInput, characterToFind: ".") == false {
             handleInput(".")
         }
     }
+    
     
     @IBAction func btnCHSPress(sender: UIButton) {
         if userInput.isEmpty {
@@ -132,50 +157,56 @@ class ViewController: UIViewController {
     }
     
     
-    
-    func doMath(functor: (Double, Double) -> Double) {
+    func doMath(newOp: String) {
         if userInput == "" || numStack.isEmpty {
             numStack.append(accumulator) // push
             
         } else {
-            
-            var oper = opStack.removeLast()
-            accumulator = oper(numStack.removeLast(), accumulator)
+            var stackOp = opStack.last
+            if (stackOp == "+" || stackOp == "-") && (newOp == "*" || newOp == "/") {
+                
+            }
+        
+            var oper = ops[opStack.removeLast()]
+            accumulator = oper!(numStack.removeLast(), accumulator)
             numStack.append(accumulator)
-            
         }
         userInput = ""
-        opStack.append(functor)
+        opStack.append(newOp)
         updateDisplay()
     }
 
+    
+    
     func doEquals() {
         if userInput == "" {
             return
         }
         if !numStack.isEmpty {
-            var oper = opStack.removeLast()
-            accumulator = oper(numStack.removeLast(), accumulator)
+            var oper = ops[opStack.removeLast()]
+            accumulator = oper!(numStack.removeLast(), accumulator)
             //numStack.append(accumulator)
         }
         updateDisplay()
         userInput = numField.text
     }
     
+    
+    
     @IBAction func btnPlusPress(sender: UIButton) {
-        doMath(add)
+        doMath("+")
     }
     
     @IBAction func btnMinusPress(sender: UIButton) {
-        doMath(sub)
+        doMath("-")
     }
     
     @IBAction func btnMultiplyPress(sender: UIButton) {
-        doMath(mul)
+        doMath("*")
     }
     
     @IBAction func btnDividePress(sender: UIButton) {
-        doMath(div)
+        doMath("/")
     }
     
     @IBAction func btnEqualsPress(sender: UIButton) {
@@ -189,47 +220,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    
-//        for num in nums {
-//            println( "A number is \(num)" )
-//        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    func add(a: Double, b: Double ) -> Double {
-        var result = a + b
-        return result
-    }
-    func sub(a: Double, b: Double ) -> Double {
-        var result = a - b
-        return result
-    }
-    func mul(a: Double, b: Double ) -> Double {
-        var result = a * b
-        return result
-    }
-    func div(a: Double, b: Double ) -> Double {
-        var result = a / b
-        return result
-    }
-
-    
-
-    // Looks for a single character in a string.
-    // Returns TRUE if the character is found.
-    func hasIndex(stringToSearch str: String, characterToFind chr: Character) -> Bool {
-        for c in str {
-            if c == chr {
-                return true
-            }
-        }
-        return false
-    }
-
 }
 
