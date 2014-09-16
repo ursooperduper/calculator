@@ -1,14 +1,5 @@
 import UIKit
 
-//extension Array {
-//    mutating func push(val: T) {
-//        self.append(val)
-//    }
-//    
-//    mutating func pop() -> T {
-//        return self.removeLast()
-//    }
-//}
 // Basic math functions
 func add(a: Double, b: Double) -> Double {
     var result = a + b
@@ -28,14 +19,12 @@ func div(a: Double, b: Double) -> Double {
 }
 
 typealias Binop = (Double, Double) -> Double
-
 let ops: [String: Binop] = [ "+" : add, "-" : sub, "*" : mul, "/" : div ]
-
 
 
 class ViewController: UIViewController {
     
-    var accumulator: Double = 0.0
+    var accumulator: Double = 0.0 // Store the calculated value here
     var userInput = "" // User-entered digits
     
     var numStack: [Double] = [] // Number stack
@@ -50,8 +39,78 @@ class ViewController: UIViewController {
         }
         return false
     }
+    
+    func handleInput(str: String) {
+        if str == "-" {
+            if userInput.hasPrefix(str) {
+                // Strip off the first character (a dash)
+                userInput = userInput.substringFromIndex(userInput.startIndex.successor())
+            } else {
+                userInput = str + userInput
+            }
+        } else {
+            userInput += str
+        }
+        accumulator = Double((userInput as NSString).doubleValue)
+        updateDisplay()
+    }
+    
+    
+    func updateDisplay() {
+        // If the value is an integer, don't show a decimal point
+        var iAcc = Int(accumulator)
+        if accumulator - Double(iAcc) == 0 {
+            numField.text = "\(iAcc)"
+        } else {
+            numField.text = "\(accumulator)"
+        }
+    }
+    
+    
+    func doMath(newOp: String) {
+        if userInput == "" || numStack.isEmpty {
+            opStack.append(newOp)
+            numStack.append(accumulator) // push
+            
+        } else {
+            var stackOp = opStack.last
+            if !((stackOp == "+" || stackOp == "-") && (newOp == "*" || newOp == "/")) {
+                var oper = ops[opStack.removeLast()]
+                accumulator = oper!(numStack.removeLast(), accumulator)
 
-
+                doEquals()
+                opStack.append(newOp)
+                numStack.append(accumulator)
+                
+            } else {
+                opStack.append(newOp)
+                numStack.append(accumulator)
+            }
+            
+        }
+        
+        println("Numstack has \(numStack.count) item(s).")
+        println("Opstack has \(opStack.count) item(s).")
+        
+        userInput = ""
+        updateDisplay()
+    }
+    
+    func doEquals() {
+        if userInput == "" {
+            return
+        }
+        if !numStack.isEmpty {
+            var oper = ops[opStack.removeLast()]
+            accumulator = oper!(numStack.removeLast(), accumulator)
+            if !opStack.isEmpty {
+                doEquals()
+            }
+        }
+        updateDisplay()
+        userInput = ""
+    }
+    
 
     // UI Set-up
     @IBOutlet var numField: UITextField!
@@ -73,32 +132,6 @@ class ViewController: UIViewController {
     @IBOutlet var btn7: UIButton!
     @IBOutlet var btn8: UIButton!
     @IBOutlet var btn9: UIButton!
-    
-    func handleInput(str: String) {
-        if str == "-" {
-            if userInput.hasPrefix(str) {
-                // Strip off the first character (a dash)
-                userInput = userInput.substringFromIndex(userInput.startIndex.successor())
-            } else {
-                userInput = str + userInput
-            }
-        } else {
-            userInput += str
-        }
-        accumulator = Double((userInput as NSString).doubleValue)
-        updateDisplay()
-    }
-
-
-    func updateDisplay() {
-        // If the value is an integer, don't show a decimal point
-        var iAcc = Int(accumulator)
-        if accumulator - Double(iAcc) == 0 {
-            numField.text = "\(iAcc)"
-        } else {
-            numField.text = "\(accumulator)"
-        }
-    }
 
     
     @IBAction func btn0Press(sender: UIButton) {
@@ -132,13 +165,11 @@ class ViewController: UIViewController {
         handleInput("9")
     }
     
-    
     @IBAction func btnDecPress(sender: UIButton) {
         if hasIndex(stringToSearch: userInput, characterToFind: ".") == false {
             handleInput(".")
         }
     }
-    
     
     @IBAction func btnCHSPress(sender: UIButton) {
         if userInput.isEmpty {
@@ -147,7 +178,6 @@ class ViewController: UIViewController {
         handleInput("-")
     }
     
-    
     @IBAction func btnACPress(sender: UIButton) {
         userInput = ""
         accumulator = 0
@@ -155,43 +185,6 @@ class ViewController: UIViewController {
         numStack.removeAll()
         opStack.removeAll()
     }
-    
-    
-    func doMath(newOp: String) {
-        if userInput == "" || numStack.isEmpty {
-            numStack.append(accumulator) // push
-            
-        } else {
-            var stackOp = opStack.last
-            if (stackOp == "+" || stackOp == "-") && (newOp == "*" || newOp == "/") {
-                
-            }
-        
-            var oper = ops[opStack.removeLast()]
-            accumulator = oper!(numStack.removeLast(), accumulator)
-            numStack.append(accumulator)
-        }
-        userInput = ""
-        opStack.append(newOp)
-        updateDisplay()
-    }
-
-    
-    
-    func doEquals() {
-        if userInput == "" {
-            return
-        }
-        if !numStack.isEmpty {
-            var oper = ops[opStack.removeLast()]
-            accumulator = oper!(numStack.removeLast(), accumulator)
-            //numStack.append(accumulator)
-        }
-        updateDisplay()
-        userInput = numField.text
-    }
-    
-    
     
     @IBAction func btnPlusPress(sender: UIButton) {
         doMath("+")
@@ -214,17 +207,12 @@ class ViewController: UIViewController {
     }
     
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 

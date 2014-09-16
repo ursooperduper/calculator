@@ -164,18 +164,6 @@
                                             <action selector="btn1Press:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="9Ta-xi-fAx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVF-m8-kvJ">
-                                        <rect key="frame" x="74" y="192" width="66" height="56"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                        <state key="normal" title=".">
-                                            <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnDecPress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MCQ-DW-5js"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRd-Ro-yQ8">
                                         <rect key="frame" x="148" y="192" width="66" height="56"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -222,6 +210,18 @@
                                         </state>
                                         <connections>
                                             <action selector="btn5Press:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="WTi-ys-ugm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVF-m8-kvJ">
+                                        <rect key="frame" x="74" y="192" width="66" height="56"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <state key="normal" title=".">
+                                            <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnDecPress:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MCQ-DW-5js"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -384,6 +384,7 @@
                             <constraint firstItem="Y6X-U3-rYm" firstAttribute="width" secondItem="JcV-kl-Dbq" secondAttribute="width" id="hL1-39-IuG"/>
                             <constraint firstItem="tIw-Jw-zVs" firstAttribute="top" secondItem="nHg-EV-gZP" secondAttribute="bottom" constant="20" id="i4J-8y-HkY"/>
                             <constraint firstAttribute="centerX" secondItem="tIw-Jw-zVs" secondAttribute="centerX" id="lV5-nt-dh4"/>
+                            <constraint firstAttribute="centerX" secondItem="tIw-Jw-zVs" secondAttribute="centerX" id="pYa-59-uss"/>
                             <constraint firstItem="IHL-1c-9Xc" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="56" id="yzD-lk-jxx"/>
                         </constraints>
                     </view>
