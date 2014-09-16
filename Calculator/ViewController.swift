@@ -21,7 +21,6 @@ func div(a: Double, b: Double) -> Double {
 typealias Binop = (Double, Double) -> Double
 let ops: [String: Binop] = [ "+" : add, "-" : sub, "*" : mul, "/" : div ]
 
-
 class ViewController: UIViewController {
     
     var accumulator: Double = 0.0 // Store the calculated value here
@@ -55,7 +54,6 @@ class ViewController: UIViewController {
         updateDisplay()
     }
     
-    
     func updateDisplay() {
         // If the value is an integer, don't show a decimal point
         var iAcc = Int(accumulator)
@@ -65,7 +63,6 @@ class ViewController: UIViewController {
             numField.text = "\(accumulator)"
         }
     }
-    
     
     func doMath(newOp: String) {
         if userInput == "" || numStack.isEmpty {
@@ -86,12 +83,7 @@ class ViewController: UIViewController {
                 opStack.append(newOp)
                 numStack.append(accumulator)
             }
-            
         }
-        
-        println("Numstack has \(numStack.count) item(s).")
-        println("Opstack has \(opStack.count) item(s).")
-        
         userInput = ""
         updateDisplay()
     }
@@ -110,7 +102,6 @@ class ViewController: UIViewController {
         updateDisplay()
         userInput = ""
     }
-    
 
     // UI Set-up
     @IBOutlet var numField: UITextField!
@@ -133,7 +124,6 @@ class ViewController: UIViewController {
     @IBOutlet var btn8: UIButton!
     @IBOutlet var btn9: UIButton!
 
-    
     @IBAction func btn0Press(sender: UIButton) {
         handleInput("0")
     }
@@ -206,11 +196,9 @@ class ViewController: UIViewController {
         doEquals()
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
