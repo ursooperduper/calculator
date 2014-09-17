@@ -76,13 +76,9 @@ class ViewController: UIViewController {
                 accumulator = oper!(numStack.removeLast(), accumulator)
 
                 doEquals()
-                opStack.append(newOp)
-                numStack.append(accumulator)
-                
-            } else {
-                opStack.append(newOp)
-                numStack.append(accumulator)
             }
+            opStack.append(newOp)
+            numStack.append(accumulator)
         }
         userInput = ""
         updateDisplay()
