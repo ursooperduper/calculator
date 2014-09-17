@@ -10,8 +10,6 @@ http://ursooperduper.github.io/2014/09/17/basic-calculator-app.html
 
 The goals for this project were simple:
 
-![Calculator UI]()
-
 Create a basic calculator that supports the following functionality:
 
 +    Only basic math will be supported: +, -, *, /
