@@ -6,7 +6,11 @@ A basic calculator for iOS 8, written in Swift.
 Learn more about this project here:
 http://ursooperduper.github.io/2014/09/17/basic-calculator-app.html
 
+![Basic iOS Calculator](http://ursooperduper.github.io/images/basic-ios-calculator.png)
+
 The goals for this project were simple:
+
+![Calculator UI]()
 
 Create a basic calculator that supports the following functionality:
 
@@ -20,7 +24,6 @@ Improvements that could be made next include:
 +    Support landscape orientation.
 +    Support scientific calculator operations and beyond.
 +    Add easter eggs when typing numbers that form words!
-
 
 I'm new to iOS development, so I'm eager to get feedback any aspect of this project.
 
