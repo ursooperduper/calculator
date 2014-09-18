@@ -65,21 +65,16 @@ class ViewController: UIViewController {
     }
     
     func doMath(newOp: String) {
-        if userInput == "" || numStack.isEmpty {
-            opStack.append(newOp)
-            numStack.append(accumulator) // push
-            
-        } else {
+        if userInput != "" && !numStack.isEmpty {
             var stackOp = opStack.last
             if !((stackOp == "+" || stackOp == "-") && (newOp == "*" || newOp == "/")) {
                 var oper = ops[opStack.removeLast()]
                 accumulator = oper!(numStack.removeLast(), accumulator)
-
                 doEquals()
             }
-            opStack.append(newOp)
-            numStack.append(accumulator)
         }
+        opStack.append(newOp)
+        numStack.append(accumulator)
         userInput = ""
         updateDisplay()
     }
